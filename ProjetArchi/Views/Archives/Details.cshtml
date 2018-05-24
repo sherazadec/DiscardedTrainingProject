@@ -1,0 +1,50 @@
+﻿@model ProjetArchi.Models.Archives
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Archives</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Images)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Images)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fichiers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fichiers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Personnes.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personnes.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Projets.id_proj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Projets.id_proj)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_archive }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

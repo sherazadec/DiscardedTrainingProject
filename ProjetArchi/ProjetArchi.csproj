@@ -53,6 +53,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -190,16 +192,77 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\QualitéController.cs" />
+    <Compile Include="DefaultController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Architectes.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Archives.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Clients.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Commentaires.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Modélisateurs.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Participe.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Personnes.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjArchiDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjArchiDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjArchiDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProjArchiDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjArchiDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Projets.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Qualité.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>ProjArchiDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjetsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Views\ArchitectesController.cs" />
+    <Compile Include="Views\ArchivesController.cs" />
+    <Compile Include="Views\CommentairesController.cs" />
+    <Compile Include="Views\ModélisateursController.cs" />
+    <Compile Include="Views\ParticipesController.cs" />
+    <Compile Include="Views\PersonnesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -208,10 +271,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ProjArchiDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ProjArchiDataModel.edmx</DependentUpon>
+      <LastGenOutput>ProjArchiDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ProjArchiDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ProjArchiDataModel.edmx</DependentUpon>
+      <LastGenOutput>ProjArchiDataModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Models\ProjArchiDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ProjArchiDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ProjArchiDataModel.edmx.diagram">
+      <DependentUpon>ProjArchiDataModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -258,9 +338,55 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Projets\Create.cshtml" />
+    <Content Include="Views\Projets\Delete.cshtml" />
+    <Content Include="Views\Projets\Details.cshtml" />
+    <Content Include="Views\Projets\Edit.cshtml" />
+    <Content Include="Views\Projets\Index.cshtml" />
+    <Content Include="Views\Archives\Create.cshtml" />
+    <Content Include="Views\Archives\Delete.cshtml" />
+    <Content Include="Views\Archives\Details.cshtml" />
+    <Content Include="Views\Archives\Edit.cshtml" />
+    <Content Include="Views\Archives\Index.cshtml" />
+    <Content Include="Views\Commentaires\Create.cshtml" />
+    <Content Include="Views\Commentaires\Delete.cshtml" />
+    <Content Include="Views\Commentaires\Details.cshtml" />
+    <Content Include="Views\Commentaires\Edit.cshtml" />
+    <Content Include="Views\Commentaires\Index.cshtml" />
+    <Content Include="Views\Architectes\Create.cshtml" />
+    <Content Include="Views\Architectes\Delete.cshtml" />
+    <Content Include="Views\Architectes\Details.cshtml" />
+    <Content Include="Views\Architectes\Edit.cshtml" />
+    <Content Include="Views\Architectes\Index.cshtml" />
+    <Content Include="Views\Modélisateurs\Create.cshtml" />
+    <Content Include="Views\Modélisateurs\Delete.cshtml" />
+    <Content Include="Views\Modélisateurs\Details.cshtml" />
+    <Content Include="Views\Modélisateurs\Edit.cshtml" />
+    <Content Include="Views\Modélisateurs\Index.cshtml" />
+    <Content Include="Views\Participes\Create.cshtml" />
+    <Content Include="Views\Participes\Delete.cshtml" />
+    <Content Include="Views\Participes\Details.cshtml" />
+    <Content Include="Views\Participes\Edit.cshtml" />
+    <Content Include="Views\Participes\Index.cshtml" />
+    <Content Include="Views\Clients\Create.cshtml" />
+    <Content Include="Views\Clients\Delete.cshtml" />
+    <Content Include="Views\Clients\Details.cshtml" />
+    <Content Include="Views\Clients\Edit.cshtml" />
+    <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Qualité\Create.cshtml" />
+    <Content Include="Views\Qualité\Delete.cshtml" />
+    <Content Include="Views\Qualité\Details.cshtml" />
+    <Content Include="Views\Qualité\Edit.cshtml" />
+    <Content Include="Views\Qualité\Index.cshtml" />
+    <Content Include="Views\Personnes\Create.cshtml" />
+    <Content Include="Views\Personnes\Delete.cshtml" />
+    <Content Include="Views\Personnes\Details.cshtml" />
+    <Content Include="Views\Personnes\Edit.cshtml" />
+    <Content Include="Views\Personnes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -274,6 +400,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f30d6339975b4a2a9fafb787070fd7d1" Name="Diagram1">
+        <EntityTypeShape EntityType="ProjetArchi3DModel.Architectes" Width="1.5" PointX="5.25" PointY="12.375" />
+        <EntityTypeShape EntityType="ProjetArchi3DModel.Archives" Width="1.5" PointX="8.25" PointY="7.875" />
+        <EntityTypeShape EntityType="ProjetArchi3DModel.Clients" Width="1.5" PointX="5.25" PointY="15" />
+        <EntityTypeShape EntityType="ProjetArchi3DModel.Commentaires" Width="1.5" PointX="5.25" PointY="4.125" />
+        <EntityTypeShape EntityType="ProjetArchi3DModel.Modélisateurs" Width="1.5" PointX="5.25" PointY="9.75" />
+        <EntityTypeShape EntityType="ProjetArchi3DModel.Participe" Width="1.5" PointX="7.5" PointY="12" />
+        <EntityTypeShape EntityType="ProjetArchi3DModel.Personnes" Width="1.5" PointX="3" PointY="7.5" />
+        <EntityTypeShape EntityType="ProjetArchi3DModel.Projets" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="ProjetArchi3DModel.Qualité" Width="1.5" PointX="0.75" PointY="8.25" />
+        <EntityTypeShape EntityType="ProjetArchi3DModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="1.375" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Architectes_Personnes" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Participe_Architectes" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Archives_Personnes" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Archives_Projets" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Clients_Personnes1" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Participe_Clients" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Commentaires_Personnes" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Modélisateurs_Personnes" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Participe_Modélisateurs" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Participe_Projets" />
+        <AssociationConnector Association="ProjetArchi3DModel.FK_Personnes_Personnes" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,50 @@
+﻿@model ProjetArchi.Models.Participe
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Participe</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Architectes.id_archi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Architectes.id_archi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.admin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clients.admin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modélisateurs.id_model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modélisateurs.id_model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Projets.id_proj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Projets.id_proj)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
