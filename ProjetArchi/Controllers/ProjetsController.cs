@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProjetArchi.Models;
 
-namespace ProjetArchi
+namespace ProjetArchi.Controllers
 {
     public class ProjetsController : Controller
     {
@@ -46,7 +46,7 @@ namespace ProjetArchi
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_proj,avancement,date,id_mod,id_client,id_archi")] Projets projets)
+        public ActionResult Create([Bind(Include = "id_proj,avancement,date_début,date_fin,id_mod,id_client,id_archi")] Projets projets)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace ProjetArchi
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_proj,avancement,date,id_mod,id_client,id_archi")] Projets projets)
+        public ActionResult Edit([Bind(Include = "id_proj,avancement,date_début,date_fin,id_mod,id_client,id_archi")] Projets projets)
         {
             if (ModelState.IsValid)
             {

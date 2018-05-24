@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ProjetArchi.Models.QuestionnaireCréationProjet>
+
+@{
+	ViewBag.Title = "Répondre aux questions pour passer à la suite";
+}
+
+<h2>Questionnaire</h2>
+
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+}
+
+<head>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+</head>
+
+<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
+<table id="questions" class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Question)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Checked)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Clients.admin)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Projets.id_proj)
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Question)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Checked)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Clients.admin)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Projets.id_proj)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.idQuest }) |
+				@Html.ActionLink("Details", "Details", new { id = item.idQuest }) |
+				@Html.ActionLink("Delete", "Delete", new { id = item.idQuest })
+			</td>
+		</tr>
+	}
+
+</table>
+<div>
+	<p><a style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Next", "Index", "RéponsesQuestionnaireProjet")</a></p>
+	<p><a style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Retour", "Index")</a></p>
+</div>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#reponses').DataTable();
+		});
+	</script>

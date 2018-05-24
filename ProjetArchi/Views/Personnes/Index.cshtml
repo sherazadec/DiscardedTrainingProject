@@ -1,51 +1,101 @@
 ﻿@model IEnumerable<ProjetArchi.Models.Personnes>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
 }
 
-<h2>Index</h2>
+<head>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+</head>
+
+
+<h2>Mes prestataires</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+	@Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prénom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Admin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Qualité1.Qualité1)
-        </th>
-        <th></th>
-    </tr>
+<table id="personnes" class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Nom)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Prénom)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Admin)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Qualité1.Qualité1)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nom)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prénom)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Admin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Qualité1.Qualité1)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+	<tbody>
+		@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Nom)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Prénom)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Admin)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Qualité1.Qualité1)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+				@Html.ActionLink("Details", "Details", new { id = item.id }) |
+				@Html.ActionLink("Delete", "Delete", new { id = item.id })
+			</td>
+		</tr>
+}</tbody>
 
 </table>
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		var table = $('#personnes').DataTable({
+			columnDefs: [{
+				targets: [0],
+				orderData: [0, 1]
+			}, {
+				targets: [1],
+				orderData: [1, 0]
+			}, {
+				targets: [4],
+				orderData: [4, 0]
+			}]
+		});
+	});
+
+	//$(document).ready(function () {
+	//	$('#personnes thead th').DataTable({
+	//		columnDefs: [{
+	//			targets: [0],
+	//			orderData: [0, 1]
+	//		}, {
+	//			targets: [1],
+	//			orderData: [1, 0]
+	//		}, {
+	//			targets: [4],
+	//			orderData: [4, 0]
+	//		}]
+	//	});
+
+	//});
+</script>
+
+

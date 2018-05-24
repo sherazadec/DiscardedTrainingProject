@@ -72,7 +72,8 @@
           </Key>
           <Property Name="id_proj" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="avancement" Type="int" Nullable="false" />
-          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="date_début" Type="date" Nullable="false" />
+          <Property Name="date_fin" Type="date" />
           <Property Name="id_mod" Type="int" Nullable="false" />
           <Property Name="id_client" Type="int" Nullable="false" />
           <Property Name="id_archi" Type="int" Nullable="false" />
@@ -83,6 +84,25 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Qualité" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionnaireCréationProjet">
+          <Key>
+            <PropertyRef Name="idQuest" />
+          </Key>
+          <Property Name="idQuest" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="xidClient" Type="int" Nullable="false" />
+          <Property Name="xidProjet" Type="int" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Checked" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RéponsesQuestionnaireProjet">
+          <Key>
+            <PropertyRef Name="idRep" />
+          </Key>
+          <Property Name="idRep" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Reponses" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="xidQuest" Type="int" Nullable="false" />
+          <Property Name="xidProjet" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -226,6 +246,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QuestionnaireCréationProjet_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="QuestionnaireCréationProjet" Type="Self.QuestionnaireCréationProjet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="QuestionnaireCréationProjet">
+              <PropertyRef Name="xidClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionnaireCréationProjet_Projets">
+          <End Role="Projets" Type="Self.Projets" Multiplicity="1" />
+          <End Role="QuestionnaireCréationProjet" Type="Self.QuestionnaireCréationProjet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projets">
+              <PropertyRef Name="id_proj" />
+            </Principal>
+            <Dependent Role="QuestionnaireCréationProjet">
+              <PropertyRef Name="xidProjet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RéponsesQuestionnaireProjet_QuestionnaireCréationProjet">
+          <End Role="QuestionnaireCréationProjet" Type="Self.QuestionnaireCréationProjet" Multiplicity="1" />
+          <End Role="RéponsesQuestionnaireProjet" Type="Self.RéponsesQuestionnaireProjet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionnaireCréationProjet">
+              <PropertyRef Name="idQuest" />
+            </Principal>
+            <Dependent Role="RéponsesQuestionnaireProjet">
+              <PropertyRef Name="xidQuest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -267,6 +323,8 @@
           <EntitySet Name="Personnes" EntityType="Self.Personnes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Projets" EntityType="Self.Projets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Qualité" EntityType="Self.Qualité" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionnaireCréationProjet" EntityType="Self.QuestionnaireCréationProjet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RéponsesQuestionnaireProjet" EntityType="Self.RéponsesQuestionnaireProjet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Architectes_Personnes" Association="Self.FK_Architectes_Personnes">
             <End Role="Personnes" EntitySet="Personnes" />
@@ -312,6 +370,18 @@
             <End Role="Qualité" EntitySet="Qualité" />
             <End Role="Personnes" EntitySet="Personnes" />
           </AssociationSet>
+          <AssociationSet Name="FK_QuestionnaireCréationProjet_Clients" Association="Self.FK_QuestionnaireCréationProjet_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="QuestionnaireCréationProjet" EntitySet="QuestionnaireCréationProjet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionnaireCréationProjet_Projets" Association="Self.FK_QuestionnaireCréationProjet_Projets">
+            <End Role="Projets" EntitySet="Projets" />
+            <End Role="QuestionnaireCréationProjet" EntitySet="QuestionnaireCréationProjet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RéponsesQuestionnaireProjet_QuestionnaireCréationProjet" Association="Self.FK_RéponsesQuestionnaireProjet_QuestionnaireCréationProjet">
+            <End Role="QuestionnaireCréationProjet" EntitySet="QuestionnaireCréationProjet" />
+            <End Role="RéponsesQuestionnaireProjet" EntitySet="RéponsesQuestionnaireProjet" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -355,7 +425,6 @@
           <EntitySet Name="Modélisateurs" EntityType="ProjetArchi3DModel.Modélisateurs" />
           <EntitySet Name="Participe" EntityType="ProjetArchi3DModel.Participe" />
           <EntitySet Name="Personnes" EntityType="ProjetArchi3DModel.Personnes" />
-          <EntitySet Name="Projets" EntityType="ProjetArchi3DModel.Projets" />
           <EntitySet Name="Qualité" EntityType="ProjetArchi3DModel.Qualité" />
           <EntitySet Name="sysdiagrams" EntityType="ProjetArchi3DModel.sysdiagrams" />
           <AssociationSet Name="FK_Architectes_Personnes" Association="ProjetArchi3DModel.FK_Architectes_Personnes">
@@ -368,10 +437,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Archives_Personnes" Association="ProjetArchi3DModel.FK_Archives_Personnes">
             <End Role="Personnes" EntitySet="Personnes" />
-            <End Role="Archives" EntitySet="Archives" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Archives_Projets" Association="ProjetArchi3DModel.FK_Archives_Projets">
-            <End Role="Projets" EntitySet="Projets" />
             <End Role="Archives" EntitySet="Archives" />
           </AssociationSet>
           <AssociationSet Name="FK_Clients_Personnes1" Association="ProjetArchi3DModel.FK_Clients_Personnes1">
@@ -394,13 +459,32 @@
             <End Role="Modélisateurs" EntitySet="Modélisateurs" />
             <End Role="Participe" EntitySet="Participe" />
           </AssociationSet>
+          <AssociationSet Name="FK_Personnes_Personnes" Association="ProjetArchi3DModel.FK_Personnes_Personnes">
+            <End Role="Qualité" EntitySet="Qualité" />
+            <End Role="Personnes" EntitySet="Personnes" />
+          </AssociationSet>
+          <EntitySet Name="QuestionnaireCréationProjet" EntityType="ProjetArchi3DModel.QuestionnaireCréationProjet" />
+          <EntitySet Name="RéponsesQuestionnaireProjet" EntityType="ProjetArchi3DModel.RéponsesQuestionnaireProjet" />
+          <AssociationSet Name="FK_QuestionnaireCréationProjet_Clients" Association="ProjetArchi3DModel.FK_QuestionnaireCréationProjet_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="QuestionnaireCréationProjet" EntitySet="QuestionnaireCréationProjet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RéponsesQuestionnaireProjet_QuestionnaireCréationProjet" Association="ProjetArchi3DModel.FK_RéponsesQuestionnaireProjet_QuestionnaireCréationProjet">
+            <End Role="QuestionnaireCréationProjet" EntitySet="QuestionnaireCréationProjet" />
+            <End Role="RéponsesQuestionnaireProjet" EntitySet="RéponsesQuestionnaireProjet" />
+          </AssociationSet>
+          <EntitySet Name="Projets" EntityType="ProjetArchi3DModel.Projets" />
+          <AssociationSet Name="FK_Archives_Projets" Association="ProjetArchi3DModel.FK_Archives_Projets">
+            <End Role="Projets" EntitySet="Projets" />
+            <End Role="Archives" EntitySet="Archives" />
+          </AssociationSet>
           <AssociationSet Name="FK_Participe_Projets" Association="ProjetArchi3DModel.FK_Participe_Projets">
             <End Role="Projets" EntitySet="Projets" />
             <End Role="Participe" EntitySet="Participe" />
           </AssociationSet>
-          <AssociationSet Name="FK_Personnes_Personnes" Association="ProjetArchi3DModel.FK_Personnes_Personnes">
-            <End Role="Qualité" EntitySet="Qualité" />
-            <End Role="Personnes" EntitySet="Personnes" />
+          <AssociationSet Name="FK_QuestionnaireCréationProjet_Projets" Association="ProjetArchi3DModel.FK_QuestionnaireCréationProjet_Projets">
+            <End Role="Projets" EntitySet="Projets" />
+            <End Role="QuestionnaireCréationProjet" EntitySet="QuestionnaireCréationProjet" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -445,6 +529,7 @@
           <Property Name="xid" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Personnes" Relationship="ProjetArchi3DModel.FK_Clients_Personnes1" FromRole="Clients" ToRole="Personnes" />
           <NavigationProperty Name="Participe" Relationship="ProjetArchi3DModel.FK_Participe_Clients" FromRole="Clients" ToRole="Participe" />
+          <NavigationProperty Name="QuestionnaireCréationProjet" Relationship="ProjetArchi3DModel.FK_QuestionnaireCréationProjet_Clients" FromRole="Clients" ToRole="QuestionnaireCréationProjet" />
         </EntityType>
         <EntityType Name="Commentaires">
           <Key>
@@ -493,19 +578,6 @@
           <NavigationProperty Name="Commentaires" Relationship="ProjetArchi3DModel.FK_Commentaires_Personnes" FromRole="Personnes" ToRole="Commentaires" />
           <NavigationProperty Name="Modélisateurs" Relationship="ProjetArchi3DModel.FK_Modélisateurs_Personnes" FromRole="Personnes" ToRole="Modélisateurs" />
           <NavigationProperty Name="Qualité1" Relationship="ProjetArchi3DModel.FK_Personnes_Personnes" FromRole="Personnes" ToRole="Qualité" />
-        </EntityType>
-        <EntityType Name="Projets">
-          <Key>
-            <PropertyRef Name="id_proj" />
-          </Key>
-          <Property Name="id_proj" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="avancement" Type="Int32" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id_mod" Type="Int32" Nullable="false" />
-          <Property Name="id_client" Type="Int32" Nullable="false" />
-          <Property Name="id_archi" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Archives" Relationship="ProjetArchi3DModel.FK_Archives_Projets" FromRole="Projets" ToRole="Archives" />
-          <NavigationProperty Name="Participe" Relationship="ProjetArchi3DModel.FK_Participe_Projets" FromRole="Projets" ToRole="Participe" />
         </EntityType>
         <EntityType Name="Qualité">
           <Key>
@@ -558,18 +630,6 @@
             </Principal>
             <Dependent Role="Archives">
               <PropertyRef Name="xid_personnes" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Archives_Projets">
-          <End Type="ProjetArchi3DModel.Projets" Role="Projets" Multiplicity="1" />
-          <End Type="ProjetArchi3DModel.Archives" Role="Archives" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Projets">
-              <PropertyRef Name="id_proj" />
-            </Principal>
-            <Dependent Role="Archives">
-              <PropertyRef Name="xid_proj" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -633,6 +693,92 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Personnes_Personnes">
+          <End Type="ProjetArchi3DModel.Qualité" Role="Qualité" Multiplicity="1" />
+          <End Type="ProjetArchi3DModel.Personnes" Role="Personnes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Qualité">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Personnes">
+              <PropertyRef Name="Qualité" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="QuestionnaireCréationProjet">
+          <Key>
+            <PropertyRef Name="idQuest" />
+          </Key>
+          <Property Name="idQuest" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="xidClient" Type="Int32" Nullable="false" />
+          <Property Name="xidProjet" Type="Int32" Nullable="false" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Checked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Clients" Relationship="ProjetArchi3DModel.FK_QuestionnaireCréationProjet_Clients" FromRole="QuestionnaireCréationProjet" ToRole="Clients" />
+          <NavigationProperty Name="RéponsesQuestionnaireProjet" Relationship="ProjetArchi3DModel.FK_RéponsesQuestionnaireProjet_QuestionnaireCréationProjet" FromRole="QuestionnaireCréationProjet" ToRole="RéponsesQuestionnaireProjet" />
+          <NavigationProperty Name="Projets" Relationship="ProjetArchi3DModel.FK_QuestionnaireCréationProjet_Projets" FromRole="QuestionnaireCréationProjet" ToRole="Projets" />
+        </EntityType>
+        <EntityType Name="RéponsesQuestionnaireProjet">
+          <Key>
+            <PropertyRef Name="idRep" />
+          </Key>
+          <Property Name="idRep" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Reponses" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="xidQuest" Type="Int32" Nullable="false" />
+          <Property Name="xidProjet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuestionnaireCréationProjet" Relationship="ProjetArchi3DModel.FK_RéponsesQuestionnaireProjet_QuestionnaireCréationProjet" FromRole="RéponsesQuestionnaireProjet" ToRole="QuestionnaireCréationProjet" />
+        </EntityType>
+        <Association Name="FK_QuestionnaireCréationProjet_Clients">
+          <End Type="ProjetArchi3DModel.Clients" Role="Clients" Multiplicity="1" />
+          <End Type="ProjetArchi3DModel.QuestionnaireCréationProjet" Role="QuestionnaireCréationProjet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="QuestionnaireCréationProjet">
+              <PropertyRef Name="xidClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RéponsesQuestionnaireProjet_QuestionnaireCréationProjet">
+          <End Type="ProjetArchi3DModel.QuestionnaireCréationProjet" Role="QuestionnaireCréationProjet" Multiplicity="1" />
+          <End Type="ProjetArchi3DModel.RéponsesQuestionnaireProjet" Role="RéponsesQuestionnaireProjet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionnaireCréationProjet">
+              <PropertyRef Name="idQuest" />
+            </Principal>
+            <Dependent Role="RéponsesQuestionnaireProjet">
+              <PropertyRef Name="xidQuest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Projets">
+          <Key>
+            <PropertyRef Name="id_proj" />
+          </Key>
+          <Property Name="id_proj" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="avancement" Type="Int32" Nullable="false" />
+          <Property Name="date_début" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date_fin" Type="DateTime" Precision="0" />
+          <Property Name="id_mod" Type="Int32" Nullable="false" />
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <Property Name="id_archi" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Archives" Relationship="ProjetArchi3DModel.FK_Archives_Projets" FromRole="Projets" ToRole="Archives" />
+          <NavigationProperty Name="Participe" Relationship="ProjetArchi3DModel.FK_Participe_Projets" FromRole="Projets" ToRole="Participe" />
+          <NavigationProperty Name="QuestionnaireCréationProjet" Relationship="ProjetArchi3DModel.FK_QuestionnaireCréationProjet_Projets" FromRole="Projets" ToRole="QuestionnaireCréationProjet" />
+        </EntityType>
+        <Association Name="FK_Archives_Projets">
+          <End Type="ProjetArchi3DModel.Projets" Role="Projets" Multiplicity="1" />
+          <End Type="ProjetArchi3DModel.Archives" Role="Archives" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projets">
+              <PropertyRef Name="id_proj" />
+            </Principal>
+            <Dependent Role="Archives">
+              <PropertyRef Name="xid_proj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Participe_Projets">
           <End Type="ProjetArchi3DModel.Projets" Role="Projets" Multiplicity="1" />
           <End Type="ProjetArchi3DModel.Participe" Role="Participe" Multiplicity="*" />
@@ -645,15 +791,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Personnes_Personnes">
-          <End Type="ProjetArchi3DModel.Qualité" Role="Qualité" Multiplicity="1" />
-          <End Type="ProjetArchi3DModel.Personnes" Role="Personnes" Multiplicity="*" />
+        <Association Name="FK_QuestionnaireCréationProjet_Projets">
+          <End Type="ProjetArchi3DModel.Projets" Role="Projets" Multiplicity="1" />
+          <End Type="ProjetArchi3DModel.QuestionnaireCréationProjet" Role="QuestionnaireCréationProjet" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Qualité">
-              <PropertyRef Name="id" />
+            <Principal Role="Projets">
+              <PropertyRef Name="id_proj" />
             </Principal>
-            <Dependent Role="Personnes">
-              <PropertyRef Name="Qualité" />
+            <Dependent Role="QuestionnaireCréationProjet">
+              <PropertyRef Name="xidProjet" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -755,18 +901,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Projets">
-            <EntityTypeMapping TypeName="ProjetArchi3DModel.Projets">
-              <MappingFragment StoreEntitySet="Projets">
-                <ScalarProperty Name="id_archi" ColumnName="id_archi" />
-                <ScalarProperty Name="id_client" ColumnName="id_client" />
-                <ScalarProperty Name="id_mod" ColumnName="id_mod" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="avancement" ColumnName="avancement" />
-                <ScalarProperty Name="id_proj" ColumnName="id_proj" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Qualité">
             <EntityTypeMapping TypeName="ProjetArchi3DModel.Qualité">
               <MappingFragment StoreEntitySet="Qualité">
@@ -783,6 +917,40 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionnaireCréationProjet">
+            <EntityTypeMapping TypeName="ProjetArchi3DModel.QuestionnaireCréationProjet">
+              <MappingFragment StoreEntitySet="QuestionnaireCréationProjet">
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="xidProjet" ColumnName="xidProjet" />
+                <ScalarProperty Name="xidClient" ColumnName="xidClient" />
+                <ScalarProperty Name="idQuest" ColumnName="idQuest" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RéponsesQuestionnaireProjet">
+            <EntityTypeMapping TypeName="ProjetArchi3DModel.RéponsesQuestionnaireProjet">
+              <MappingFragment StoreEntitySet="RéponsesQuestionnaireProjet">
+                <ScalarProperty Name="xidProjet" ColumnName="xidProjet" />
+                <ScalarProperty Name="xidQuest" ColumnName="xidQuest" />
+                <ScalarProperty Name="Reponses" ColumnName="Reponses" />
+                <ScalarProperty Name="idRep" ColumnName="idRep" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projets">
+            <EntityTypeMapping TypeName="ProjetArchi3DModel.Projets">
+              <MappingFragment StoreEntitySet="Projets">
+                <ScalarProperty Name="id_archi" ColumnName="id_archi" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id_mod" ColumnName="id_mod" />
+                <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+                <ScalarProperty Name="date_début" ColumnName="date_début" />
+                <ScalarProperty Name="avancement" ColumnName="avancement" />
+                <ScalarProperty Name="id_proj" ColumnName="id_proj" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,57 +1,169 @@
 ﻿@model IEnumerable<ProjetArchi.Models.Projets>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
 }
 
-<h2>Index</h2>
+<head>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>*@
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.avancement)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.id_mod)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.id_client)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.id_archi)
-        </th>
-        <th></th>
-    </tr>
+	
+</head>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.avancement)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.id_mod)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.id_client)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.id_archi)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_proj }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_proj }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_proj })
-        </td>
-    </tr>
-}
+<h1>
+	Projet en cours
+</h1>
 
+<p><a @*class="btn btn-sm animated-button sandy-one"*@ style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Démarrez un nouveau projet", "Create")</a></p>
+<p><a style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Mes Prestataires", "Index", "Personnes")</a></p>
+
+<table id="createprojet" class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.avancement)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.date_début)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.date_fin)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.id_mod)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.id_client)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.id_archi)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.avancement)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.date_début)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.date_fin)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.id_mod)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.id_client)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.id_archi)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.id_proj }) |
+					@Html.ActionLink("Details", "Details", new { id = item.id_proj }) |
+					@Html.ActionLink("Delete", "Delete", new { id = item.id_proj })
+				</td>
+			</tr>
+
+		}
+	</tbody>
+	<tfoot>
+
+		<tr>
+
+			<th>
+				@Html.DisplayNameFor(model => model.avancement)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.date_début)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.date_fin)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.id_mod)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.id_client)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.id_archi)
+			</th>
+			<th></th>
+		</tr>
+
+	</tfoot>
 </table>
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$('#createprojet').DataTable({
+			columnDefs: [{
+				targets: [0],
+				orderData: [0, 1]
+			}, {
+				targets: [1],
+				orderData: [1, 0]
+			}, {
+				targets: [4],
+				orderData: [4, 0]
+			}]
+		});
+	});
+
+</script>
+
+@*<script type="text/javascript">
+		$(document).ready(function () {
+			// Setup - add a text input to each footer cell
+			$('#createprojet tfoot th').each(function () {
+				var title = $(this).text();
+				$(this).html('<input type="text" placeholder="Search' + title + '"/>');
+
+
+
+			});
+			// DataTable
+			var table = $('#createprojet').DataTable({
+				"language": {
+					"lengthMenu": "Display _MENU_ records per page",
+					"loadingRecords": "Loading...",
+					"zeroRecords": "Nothing found - sorry",
+					"info": "Showing page _PAGE_ of _PAGES_",
+					"infoEmpty": "No records available",
+					"infoFiltered": "(filtered from _MAX_ total records)",
+
+				},
+			});
+
+			// Apply the search
+			table.columns().every(function () {
+				var that = this;
+
+				$('input', this.footer()).on('keyup change', function () {
+					if (that.search() !== this.value) {
+						that
+							.search(this.value)
+							.draw();
+					}
+				});
+			});
+		});
+
+
+
+
+	</script>*@

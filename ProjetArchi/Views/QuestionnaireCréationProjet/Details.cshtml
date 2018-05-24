@@ -1,0 +1,50 @@
+﻿@model ProjetArchi.Models.QuestionnaireCréationProjet
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>QuestionnaireCréationProjet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Question)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Checked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Checked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clients.admin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clients.admin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Projets.id_proj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Projets.id_proj)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idQuest }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

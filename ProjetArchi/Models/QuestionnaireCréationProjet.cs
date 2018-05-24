@@ -12,23 +12,23 @@ namespace ProjetArchi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Clients
+    public partial class QuestionnaireCréationProjet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clients()
+        public QuestionnaireCréationProjet()
         {
-            this.Participe = new HashSet<Participe>();
-            this.QuestionnaireCréationProjet = new HashSet<QuestionnaireCréationProjet>();
+            this.RéponsesQuestionnaireProjet = new HashSet<RéponsesQuestionnaireProjet>();
         }
     
-        public int id_client { get; set; }
-        public string admin { get; set; }
-        public int xid { get; set; }
+        public int idQuest { get; set; }
+        public int xidClient { get; set; }
+        public int xidProjet { get; set; }
+        public string Question { get; set; }
+        public bool Checked { get; set; }
     
-        public virtual Personnes Personnes { get; set; }
+        public virtual Clients Clients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Participe> Participe { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionnaireCréationProjet> QuestionnaireCréationProjet { get; set; }
+        public virtual ICollection<RéponsesQuestionnaireProjet> RéponsesQuestionnaireProjet { get; set; }
+        public virtual Projets Projets { get; set; }
     }
 }
