@@ -32,13 +32,13 @@ namespace ProjetArchi.Models
         public virtual DbSet<Clients> Clients { get; set; }
         public virtual DbSet<Commentaires> Commentaires { get; set; }
         public virtual DbSet<Modélisateurs> Modélisateurs { get; set; }
-        public virtual DbSet<Participe> Participe { get; set; }
         public virtual DbSet<Personnes> Personnes { get; set; }
         public virtual DbSet<Qualité> Qualité { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Projets> Projets { get; set; }
         public virtual DbSet<QuestionnaireCréationProjet> QuestionnaireCréationProjet { get; set; }
         public virtual DbSet<RéponsesQuestionnaireProjet> RéponsesQuestionnaireProjet { get; set; }
-        public virtual DbSet<Projets> Projets { get; set; }
+        public virtual DbSet<Participe> Participe { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

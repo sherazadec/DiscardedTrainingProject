@@ -17,7 +17,6 @@ namespace ProjetArchi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Clients()
         {
-            this.Participe = new HashSet<Participe>();
             this.QuestionnaireCréationProjet = new HashSet<QuestionnaireCréationProjet>();
         }
     
@@ -26,8 +25,6 @@ namespace ProjetArchi.Models
         public int xid { get; set; }
     
         public virtual Personnes Personnes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Participe> Participe { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionnaireCréationProjet> QuestionnaireCréationProjet { get; set; }
     }

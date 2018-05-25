@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProjetArchi.Models;
 
-namespace ProjetArchi.Views
+namespace ProjetArchi.Controllers
 {
     public class ParticipesController : Controller
     {
@@ -17,7 +17,7 @@ namespace ProjetArchi.Views
         // GET: Participes
         public ActionResult Index()
         {
-            var participe = db.Participe.Include(p => p.Architectes).Include(p => p.Clients).Include(p => p.Modélisateurs).Include(p => p.Projets);
+            var participe = db.Participe.Include(p => p.Projets);
             return View(participe.ToList());
         }
 
@@ -39,9 +39,6 @@ namespace ProjetArchi.Views
         // GET: Participes/Create
         public ActionResult Create()
         {
-            ViewBag.xid_archi = new SelectList(db.Architectes, "id_archi", "id_archi");
-            ViewBag.xid_client = new SelectList(db.Clients, "id_client", "admin");
-            ViewBag.xid_mod = new SelectList(db.Modélisateurs, "id_model", "id_model");
             ViewBag.xid_projet = new SelectList(db.Projets, "id_proj", "id_proj");
             return View();
         }
@@ -51,7 +48,7 @@ namespace ProjetArchi.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,xid_client,xid_projet,xid_archi,xid_mod")] Participe participe)
+        public ActionResult Create([Bind(Include = "id,xid_projet,xid_Personnes")] Participe participe)
         {
             if (ModelState.IsValid)
             {
@@ -60,9 +57,6 @@ namespace ProjetArchi.Views
                 return RedirectToAction("Index");
             }
 
-            ViewBag.xid_archi = new SelectList(db.Architectes, "id_archi", "id_archi", participe.xid_archi);
-            ViewBag.xid_client = new SelectList(db.Clients, "id_client", "admin", participe.xid_client);
-            ViewBag.xid_mod = new SelectList(db.Modélisateurs, "id_model", "id_model", participe.xid_mod);
             ViewBag.xid_projet = new SelectList(db.Projets, "id_proj", "id_proj", participe.xid_projet);
             return View(participe);
         }
@@ -79,9 +73,6 @@ namespace ProjetArchi.Views
             {
                 return HttpNotFound();
             }
-            ViewBag.xid_archi = new SelectList(db.Architectes, "id_archi", "id_archi", participe.xid_archi);
-            ViewBag.xid_client = new SelectList(db.Clients, "id_client", "admin", participe.xid_client);
-            ViewBag.xid_mod = new SelectList(db.Modélisateurs, "id_model", "id_model", participe.xid_mod);
             ViewBag.xid_projet = new SelectList(db.Projets, "id_proj", "id_proj", participe.xid_projet);
             return View(participe);
         }
@@ -91,7 +82,7 @@ namespace ProjetArchi.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,xid_client,xid_projet,xid_archi,xid_mod")] Participe participe)
+        public ActionResult Edit([Bind(Include = "id,xid_projet,xid_Personnes")] Participe participe)
         {
             if (ModelState.IsValid)
             {
@@ -99,9 +90,6 @@ namespace ProjetArchi.Views
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.xid_archi = new SelectList(db.Architectes, "id_archi", "id_archi", participe.xid_archi);
-            ViewBag.xid_client = new SelectList(db.Clients, "id_client", "admin", participe.xid_client);
-            ViewBag.xid_mod = new SelectList(db.Modélisateurs, "id_model", "id_model", participe.xid_mod);
             ViewBag.xid_projet = new SelectList(db.Projets, "id_proj", "id_proj", participe.xid_projet);
             return View(participe);
         }

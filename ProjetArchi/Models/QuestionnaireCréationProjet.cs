@@ -22,13 +22,16 @@ namespace ProjetArchi.Models
     
         public int idQuest { get; set; }
         public int xidClient { get; set; }
-        public int xidProjet { get; set; }
-        public string Question { get; set; }
+        public string Question_1 { get; set; }
+        public string Question_2 { get; set; }
+        public string Question_3 { get; set; }
+        public string Question_4 { get; set; }
+        public string Question_5 { get; set; }
+        public string Question_6 { get; set; }
         public bool Checked { get; set; }
     
         public virtual Clients Clients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RéponsesQuestionnaireProjet> RéponsesQuestionnaireProjet { get; set; }
-        public virtual Projets Projets { get; set; }
     }
 }

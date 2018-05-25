@@ -39,7 +39,7 @@ namespace ProjetArchi.Controllers
         // GET: RéponsesQuestionnaireProjet/Create
         public ActionResult Create()
         {
-            ViewBag.xidQuest = new SelectList(db.QuestionnaireCréationProjet, "idQuest", "Question");
+            ViewBag.xidQuest = new SelectList(db.QuestionnaireCréationProjet, "idQuest", "Question_1");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace ProjetArchi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idRep,Reponses,xidQuest,xidProjet")] RéponsesQuestionnaireProjet réponsesQuestionnaireProjet)
+        public ActionResult Create([Bind(Include = "idRep,Reponses,xidQuest")] RéponsesQuestionnaireProjet réponsesQuestionnaireProjet)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace ProjetArchi.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.xidQuest = new SelectList(db.QuestionnaireCréationProjet, "idQuest", "Question", réponsesQuestionnaireProjet.xidQuest);
+            ViewBag.xidQuest = new SelectList(db.QuestionnaireCréationProjet, "idQuest", "Question_1", réponsesQuestionnaireProjet.xidQuest);
             return View(réponsesQuestionnaireProjet);
         }
 
@@ -73,7 +73,7 @@ namespace ProjetArchi.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.xidQuest = new SelectList(db.QuestionnaireCréationProjet, "idQuest", "Question", réponsesQuestionnaireProjet.xidQuest);
+            ViewBag.xidQuest = new SelectList(db.QuestionnaireCréationProjet, "idQuest", "Question_1", réponsesQuestionnaireProjet.xidQuest);
             return View(réponsesQuestionnaireProjet);
         }
 
@@ -82,7 +82,7 @@ namespace ProjetArchi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idRep,Reponses,xidQuest,xidProjet")] RéponsesQuestionnaireProjet réponsesQuestionnaireProjet)
+        public ActionResult Edit([Bind(Include = "idRep,Reponses,xidQuest")] RéponsesQuestionnaireProjet réponsesQuestionnaireProjet)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace ProjetArchi.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.xidQuest = new SelectList(db.QuestionnaireCréationProjet, "idQuest", "Question", réponsesQuestionnaireProjet.xidQuest);
+            ViewBag.xidQuest = new SelectList(db.QuestionnaireCréationProjet, "idQuest", "Question_1", réponsesQuestionnaireProjet.xidQuest);
             return View(réponsesQuestionnaireProjet);
         }
 

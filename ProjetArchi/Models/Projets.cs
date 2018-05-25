@@ -19,7 +19,6 @@ namespace ProjetArchi.Models
         {
             this.Archives = new HashSet<Archives>();
             this.Participe = new HashSet<Participe>();
-            this.QuestionnaireCréationProjet = new HashSet<QuestionnaireCréationProjet>();
         }
     
         public int id_proj { get; set; }
@@ -34,7 +33,5 @@ namespace ProjetArchi.Models
         public virtual ICollection<Archives> Archives { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Participe> Participe { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionnaireCréationProjet> QuestionnaireCréationProjet { get; set; }
     }
 }

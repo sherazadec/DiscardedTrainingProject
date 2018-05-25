@@ -17,7 +17,6 @@ namespace ProjetArchi.Models
         public int idRep { get; set; }
         public string Reponses { get; set; }
         public int xidQuest { get; set; }
-        public int xidProjet { get; set; }
     
         public virtual QuestionnaireCréationProjet QuestionnaireCréationProjet { get; set; }
     }

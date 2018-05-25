@@ -71,10 +71,9 @@
     </div>
 }
 
-	<div>
-		<p><a style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Next", "Index", "QuestionnaireCréationProjet")</a></p>
-		<p><a style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Retour", "Index")</a></p>
-	</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

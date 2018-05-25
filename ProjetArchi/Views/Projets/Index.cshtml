@@ -2,29 +2,30 @@
 
 @{
 	ViewBag.Title = "Index";
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/modernizr")
 }
 
-<head>
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-	<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>*@
+<h2>Index</h2>
 
-	
-</head>
+<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
 
-<h1>
-	Projet en cours
-</h1>
+<body style="background-color:black">
 
-<p><a @*class="btn btn-sm animated-button sandy-one"*@ style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Démarrez un nouveau projet", "Create")</a></p>
-<p><a style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Mes Prestataires", "Index", "Personnes")</a></p>
 
-<table id="createprojet" class="table">
-	<thead>
+	<div class="row">
+		<div class="col-md-3 col-sm-3 col-xs-6"> <a href="@Url.Action("Create", "Projets")" class="btn btn-sm animated-button sandy-one">Démarrez nouveau projet</a> </div>
+		<div class="col-md-3 col-sm-3 col-xs-6"> <a href="#" class="btn btn-sm animated-button sandy-two">Login</a> </div>
+		<div class="col-md-3 col-sm-3 col-xs-6"> <a href="#" class="btn btn-sm animated-button sandy-three">Register</a> </div>
+		<div class="col-md-3 col-sm-3 col-xs-6"> <a href="#" class="btn btn-sm animated-button sandy-four">Learn more</a> </div>
+	</div>
+
+	<p><a style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Démarrez un nouveau projet", "Create")</a></p>
+	<p><a style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Mes Prestataires", "Index", "Personnes")</a></p>
+	<p><a style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Exemple", "Index", "Participes")</a></p>
+	<p><a style="background-color:lavender" class="btn btn-default" @Html.ActionLink("Archives", "Index", "Archives")</a></p>
+
+	<table class="table">
 		<tr>
 			<th>
 				@Html.DisplayNameFor(model => model.avancement)
@@ -46,9 +47,7 @@
 			</th>
 			<th></th>
 		</tr>
-	</thead>
 
-	<tbody>
 		@foreach (var item in Model)
 		{
 			<tr>
@@ -76,94 +75,7 @@
 					@Html.ActionLink("Delete", "Delete", new { id = item.id_proj })
 				</td>
 			</tr>
-
 		}
-	</tbody>
-	<tfoot>
 
-		<tr>
-
-			<th>
-				@Html.DisplayNameFor(model => model.avancement)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.date_début)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.date_fin)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.id_mod)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.id_client)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.id_archi)
-			</th>
-			<th></th>
-		</tr>
-
-	</tfoot>
-</table>
-
-<script type="text/javascript">
-
-	$(document).ready(function () {
-		$('#createprojet').DataTable({
-			columnDefs: [{
-				targets: [0],
-				orderData: [0, 1]
-			}, {
-				targets: [1],
-				orderData: [1, 0]
-			}, {
-				targets: [4],
-				orderData: [4, 0]
-			}]
-		});
-	});
-
-</script>
-
-@*<script type="text/javascript">
-		$(document).ready(function () {
-			// Setup - add a text input to each footer cell
-			$('#createprojet tfoot th').each(function () {
-				var title = $(this).text();
-				$(this).html('<input type="text" placeholder="Search' + title + '"/>');
-
-
-
-			});
-			// DataTable
-			var table = $('#createprojet').DataTable({
-				"language": {
-					"lengthMenu": "Display _MENU_ records per page",
-					"loadingRecords": "Loading...",
-					"zeroRecords": "Nothing found - sorry",
-					"info": "Showing page _PAGE_ of _PAGES_",
-					"infoEmpty": "No records available",
-					"infoFiltered": "(filtered from _MAX_ total records)",
-
-				},
-			});
-
-			// Apply the search
-			table.columns().every(function () {
-				var that = this;
-
-				$('input', this.footer()).on('keyup change', function () {
-					if (that.search() !== this.value) {
-						that
-							.search(this.value)
-							.draw();
-					}
-				});
-			});
-		});
-
-
-
-
-	</script>*@
+	</table>
+</body>

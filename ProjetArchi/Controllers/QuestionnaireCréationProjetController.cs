@@ -17,7 +17,7 @@ namespace ProjetArchi.Controllers
         // GET: QuestionnaireCréationProjet
         public ActionResult Index()
         {
-            var questionnaireCréationProjet = db.QuestionnaireCréationProjet.Include(q => q.Clients).Include(q => q.Projets);
+            var questionnaireCréationProjet = db.QuestionnaireCréationProjet.Include(q => q.Clients);
             return View(questionnaireCréationProjet.ToList());
         }
 
@@ -40,7 +40,6 @@ namespace ProjetArchi.Controllers
         public ActionResult Create()
         {
             ViewBag.xidClient = new SelectList(db.Clients, "id_client", "admin");
-            ViewBag.xidProjet = new SelectList(db.Projets, "id_proj", "id_proj");
             return View();
         }
 
@@ -49,7 +48,7 @@ namespace ProjetArchi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idQuest,xidClient,xidProjet,Question,Checked")] QuestionnaireCréationProjet questionnaireCréationProjet)
+        public ActionResult Create([Bind(Include = "idQuest,xidClient,Question_1,Question_2,Question_3,Question_4,Question_5,Question_6,Checked")] QuestionnaireCréationProjet questionnaireCréationProjet)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +58,6 @@ namespace ProjetArchi.Controllers
             }
 
             ViewBag.xidClient = new SelectList(db.Clients, "id_client", "admin", questionnaireCréationProjet.xidClient);
-            ViewBag.xidProjet = new SelectList(db.Projets, "id_proj", "id_proj", questionnaireCréationProjet.xidProjet);
             return View(questionnaireCréationProjet);
         }
 
@@ -76,7 +74,6 @@ namespace ProjetArchi.Controllers
                 return HttpNotFound();
             }
             ViewBag.xidClient = new SelectList(db.Clients, "id_client", "admin", questionnaireCréationProjet.xidClient);
-            ViewBag.xidProjet = new SelectList(db.Projets, "id_proj", "id_proj", questionnaireCréationProjet.xidProjet);
             return View(questionnaireCréationProjet);
         }
 
@@ -85,7 +82,7 @@ namespace ProjetArchi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idQuest,xidClient,xidProjet,Question,Checked")] QuestionnaireCréationProjet questionnaireCréationProjet)
+        public ActionResult Edit([Bind(Include = "idQuest,xidClient,Question_1,Question_2,Question_3,Question_4,Question_5,Question_6,Checked")] QuestionnaireCréationProjet questionnaireCréationProjet)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +91,6 @@ namespace ProjetArchi.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.xidClient = new SelectList(db.Clients, "id_client", "admin", questionnaireCréationProjet.xidClient);
-            ViewBag.xidProjet = new SelectList(db.Projets, "id_proj", "id_proj", questionnaireCréationProjet.xidProjet);
             return View(questionnaireCréationProjet);
         }
 

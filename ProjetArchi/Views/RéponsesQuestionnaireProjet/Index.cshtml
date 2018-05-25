@@ -9,16 +9,13 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table id="reponses" class="table">
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Reponses)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.xidProjet)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QuestionnaireCréationProjet.Question)
+            @Html.DisplayNameFor(model => model.QuestionnaireCréationProjet.Question_1)
         </th>
         <th></th>
     </tr>
@@ -29,10 +26,7 @@
             @Html.DisplayFor(modelItem => item.Reponses)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.xidProjet)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QuestionnaireCréationProjet.Question)
+            @Html.DisplayFor(modelItem => item.QuestionnaireCréationProjet.Question_1)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.idRep }) |

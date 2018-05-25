@@ -15,14 +15,9 @@ namespace ProjetArchi.Models
     public partial class Participe
     {
         public int id { get; set; }
-        public int xid_client { get; set; }
         public int xid_projet { get; set; }
-        public int xid_archi { get; set; }
-        public int xid_mod { get; set; }
+        public int xid_Personnes { get; set; }
     
-        public virtual Architectes Architectes { get; set; }
-        public virtual Clients Clients { get; set; }
-        public virtual Modélisateurs Modélisateurs { get; set; }
         public virtual Projets Projets { get; set; }
     }
 }
